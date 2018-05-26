@@ -211,7 +211,7 @@ public class LoginController {
 		
 		ModelAndView model = new ModelAndView();
 		
-		model.setViewName("backstage");
+		model.setViewName("backstagelast");
 		
 		return model;
 	}
@@ -246,14 +246,6 @@ public class LoginController {
 		return model;
 	}
 	
-	@RequestMapping(value = "/backstagelast", method = RequestMethod.GET)
-	public ModelAndView backstagelast() {
-		
-		ModelAndView model = new ModelAndView();
-		//System.out.println("1");
-		model.setViewName("backstagelast");
-		
-		return model;
-	}
+
 	
 }

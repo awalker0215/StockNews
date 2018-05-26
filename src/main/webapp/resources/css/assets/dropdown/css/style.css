@@ -262,4 +262,35 @@
 .is-builder .nav-dropdown.collapsing {
   transition: none !important; }
 
+.roll-bar {
+	overflow: auto;
+	max-height: 600px;
+}
+
+.roll-bar::-webkit-scrollbar {
+      width: 7px;
+}
+
+.roll-bar::-webkit-scrollbar-track {
+      background-color: #0174DF;
+} /* the new scrollbar will have a flat appearance with the set background color */
+ 
+.roll-bar::-webkit-scrollbar-thumb {
+      background-color: #81BEF7;
+}
+ 
+.roll-bar::-webkit-scrollbar-button {
+      background-color: #0174DF;
+	display: none;
+}
+ 
+.roll-bar::-webkit-scrollbar-corner {
+      background-color: black;
+} /* 
 /*# sourceMappingURL=style.css.map */
+
+@media (max-width: 575px){
+	.roll-bar {
+		overflow: none;
+	}
+}
