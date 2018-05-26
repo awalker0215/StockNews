@@ -1,2 +1,9 @@
 eclipse.preferences.version=1
+encoding//src/main/webapp/WEB-INF/pages/backstage.jsp=UTF-8
+encoding//src/main/webapp/WEB-INF/pages/backstagelast.jsp=UTF-8
 encoding//src/main/webapp/WEB-INF/pages/hello.jsp=UTF-8
+encoding//src/main/webapp/WEB-INF/pages/index_newsList.jsp=UTF-8
+encoding//src/main/webapp/WEB-INF/pages/loginnew.jsp=UTF-8
+encoding//src/main/webapp/WEB-INF/pages/newsList.jsp=UTF-8
+encoding//src/main/webapp/WEB-INF/pages/newsListTest.jsp=UTF-8
+encoding//src/main/webapp/WEB-INF/pages/signUp.jsp=UTF-8

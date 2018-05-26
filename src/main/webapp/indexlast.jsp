@@ -10,7 +10,7 @@
 <script>
 $(document).ready(function(){
     //function showTxt(fileName){
-        $("#content").load("/resources/txt/"+'<c:forEach items="${newsinfo}" var="q">${q.news_content}</c:forEach>');
+        $("#content").load("/resources/txt/20180123-1.txt");
     //}
 	//showTxt("txt/20180123-1.txt")
 });
@@ -97,11 +97,9 @@ $(document).ready(function(){
 <div class="row" style="margin-top: 50px">
     <div class="mbr-white col-lg-8 col-md-7 content-container">
         <h1 class="mbr-section-title mbr-bold pb-3 mbr-fonts-style display-1">NEWS TITLE</h1>
-        <c:forEach items="${newsinfo}" var="q">
-        	<h5 class="mbr-fonts-style display-6">${q.news_time}</h5>       	
-        </c:forEach>		
+		<h5 class="mbr-fonts-style display-6">2007/02/07</h5>
         <p class="mbr-text pb-3 mbr-fonts-style display-5" align="left" id="content">
-          </p>
+        </p>
     </div>
     <div class="col-lg-4 col-md-5">
     <div class="form-container">
@@ -117,10 +115,9 @@ $(document).ready(function(){
 						<button href="" type="submit" class="btn btn-primary display-4">好</button>
             <button href="" type="submit" class="btn btn-info display-4">不確定</button>
             <button href="" type="submit" class="btn btn-secondary display-4">壞</button>
-            <button href="" type="submit" class="btn btn-success display-4">沒有這張股票</button>
 					</span>
 					<div class="form-group" data-for="message">
-						<textarea type="text" class="form-control px-3" name="message" rows="1" placeholder="原因" data-form-field="Message" id="message-header15-h"></textarea>
+						<textarea type="text" class="form-control px-3" name="message" rows="1" placeholder="Text" data-form-field="Message" id="message-header15-h"></textarea>
 					</div>
 				</div>
 				
@@ -134,10 +131,9 @@ $(document).ready(function(){
 						<button href="" type="submit" class="btn btn-primary display-4">好</button>
             <button href="" type="submit" class="btn btn-info display-4">不確定</button>
             <button href="" type="submit" class="btn btn-secondary display-4">壞</button>
-            <button href="" type="submit" class="btn btn-success display-4">沒有這張股票</button>
 					</span>
 					<div class="form-group" data-for="message">
-						<textarea type="text" class="form-control px-3" name="message" rows="1" placeholder="原因" data-form-field="Message" id="message-header15-h"></textarea>
+						<textarea type="text" class="form-control px-3" name="message" rows="1" placeholder="Text" data-form-field="Message" id="message-header15-h"></textarea>
 					</div>
 				</div>
             </form>

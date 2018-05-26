@@ -82,5 +82,23 @@ public class LoginRepository {
 		this.jdbcTemplate.update(sql,username);	
 
 	}
+	//----------------------------------------------
+	public List selectnews(String username) {
+		String sql = "SELECT user_role_id FROM users where username = ?";
+		String id = this.jdbcTemplate.queryForObject(sql,String.class,username);
+		sql = "select * FROM news  where news_id not in (SELECT news_id  FROM `postback` WHERE user_role_id = ?) ORDER BY RAND() LIMIT 1"; 
+		//select * FROM news  where news_id not in (SELECT news_id  FROM `postback` WHERE user_role_id in (SELECT user_role_id FROM users where username = ?)) ORDER BY RAND() LIMIT 1
+		List list = this.jdbcTemplate.queryForList(sql,id);//
+		
+		return list;
+	}
+	
+	public List getnewsstock(String nid) {
+		String sql = "SELECT * FROM `target` WHERE news_id = ?"; 
+		//select * FROM news  where news_id not in (SELECT news_id  FROM `postback` WHERE user_role_id in (SELECT user_role_id FROM users where username = ?)) ORDER BY RAND() LIMIT 1
+		List list = this.jdbcTemplate.queryForList(sql,nid);//
+		
+		return list;
+	}
 	
 }
