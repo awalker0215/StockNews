@@ -75,5 +75,12 @@ public class LoginService {
 		return alluserinfo;
 
 	}
+	
+	public List getallnewspostback() {
+
+		List allpostbackinfo = loginRepository.getallnewspostback();
+		return allpostbackinfo;
+
+	}
 
 }

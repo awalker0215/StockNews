@@ -148,7 +148,7 @@ public class LoginController {
 	        }
 		}
 		
-		model.setViewName("login");
+		model.setViewName("loginnew");
 		
 		return model;
 
@@ -207,8 +207,8 @@ public class LoginController {
 	}
 	//==========================new================================
 	@RequestMapping(value = "/backstage", method = RequestMethod.GET)
-	public ModelAndView backstage() {
-		
+	public ModelAndView backstage(HttpServletRequest request,HttpServletResponse response) {
+		String nid = (String) request.getParameter("nid");
 		ModelAndView model = new ModelAndView();
 		
 		model.setViewName("backstagelast");
@@ -220,6 +220,9 @@ public class LoginController {
 	public ModelAndView newlist() {
 		
 		ModelAndView model = new ModelAndView();
+		
+		List allpostbackinfo = loginService.getallnewspostback();
+		model.addObject("allpostbackinfo", allpostbackinfo);
 		
 		model.setViewName("newsList");
 		
@@ -236,7 +239,7 @@ public class LoginController {
 		return model;
 	}
 	
-	@RequestMapping(value = "/index_newslist", method = RequestMethod.GET)
+	/*@RequestMapping(value = "/index_newslist", method = RequestMethod.GET)
 	public ModelAndView index_newslist() {
 		
 		ModelAndView model = new ModelAndView();
@@ -244,7 +247,7 @@ public class LoginController {
 		model.setViewName("index_newsList");
 		
 		return model;
-	}
+	}*/
 	
 
 	

@@ -101,4 +101,11 @@ public class LoginRepository {
 		return list;
 	}
 	
+	public List getallnewspostback() {//0=bad,1=good,2=idk,3=it dont has
+		String sql = "SELECT postback.news_id as id,COUNT(postback.judge_state) as totalcount,postback.reason,Count(case when (postback.judge_state=0) then 1 else null end) as bcount,Count(case when (postback.judge_state=1) then 1 else null end) as gcount,Count(case when (postback.judge_state=2) then 1 else null end) as idkcount,news.news_title as title FROM `postback` left join news ON postback.news_id = news.news_id GROUP by postback.news_id"; 
+		//select * FROM news  where news_id not in (SELECT news_id  FROM `postback` WHERE user_role_id in (SELECT user_role_id FROM users where username = ?)) ORDER BY RAND() LIMIT 1
+		List list = this.jdbcTemplate.queryForList(sql);//
+		
+		return list;
+	}
 }

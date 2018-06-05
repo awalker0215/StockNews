@@ -1,4 +1,9 @@
-﻿<!DOCTYPE html>
+﻿<%@taglib prefix="sec"
+	uri="http://www.springframework.org/security/tags"%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+<!DOCTYPE html>
 <html >
 <head>
   <!-- Site made with Mobirise Website Builder v4.6.3, https://mobirise.com -->
@@ -89,35 +94,24 @@
           <table class="table" cellspacing="0">
             <thead>
               <tr class="table-heads ">
-				 <th class="head-item mbr-fonts-style display-7">文章編號</th>
               	 <th class="head-item mbr-fonts-style display-7">文章標題</th>
 				  <th class="head-item mbr-fonts-style display-7">判斷人數</th>
 				  <th class="head-item mbr-fonts-style display-7">好</th>
-				  <th class="head-item mbr-fonts-style display-7">不確定</th>
 				  <th class="head-item mbr-fonts-style display-7">壞</th>
-				  <th class="head-item mbr-fonts-style display-7">時間</th>
+				  <th class="head-item mbr-fonts-style display-7">不確定</th>
 				</tr>
             </thead>
 
             <tbody>
-				<tr> 
-					<td class="body-item mbr-fonts-style display-7">1</td>
-					<td class="body-item mbr-fonts-style display-7">新聞標題1</td>
-					<td class="body-item mbr-fonts-style display-7">15</td>
-					<td class="body-item mbr-fonts-style display-7">15</td>
-					<td class="body-item mbr-fonts-style display-7">15</td>
-					<td class="body-item mbr-fonts-style display-7">15</td>
-					<td class="body-item mbr-fonts-style display-7">2016-10-17</td>
-				</tr>
-				<tr>
-					<td class="body-item mbr-fonts-style display-7">2</td>
-					<td class="body-item mbr-fonts-style display-7">新聞標題2</td>
-					<td class="body-item mbr-fonts-style display-7">15</td>
-					<td class="body-item mbr-fonts-style display-7">15</td>
-					<td class="body-item mbr-fonts-style display-7">15</td>
-					<td class="body-item mbr-fonts-style display-7">15</td>
-					<td class="body-item mbr-fonts-style display-7">2016-10-17</td>
-				</tr>
+            	<c:forEach items="${allpostbackinfo}" var="q">
+					<tr> 
+						<td class="body-item mbr-fonts-style display-7" ><a href = "/backstage?nid=${q.id}">${q.title}</a></td>
+						<td class="body-item mbr-fonts-style display-7">${q.totalcount}</td>
+						<td class="body-item mbr-fonts-style display-7">${q.gcount}</td>
+						<td class="body-item mbr-fonts-style display-7">${q.bcount}</td>
+						<td class="body-item mbr-fonts-style display-7">${q.idkcount}</td>
+					</tr>
+				</c:forEach>				
 			</tbody>
           </table>
         </div>
