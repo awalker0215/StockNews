@@ -1,5 +1,7 @@
 package org.iii.web.login;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -22,6 +24,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.view.RedirectView;
 
 @Controller
 public class LoginController {
@@ -29,9 +32,10 @@ public class LoginController {
 	LoginService loginService;
 
 	@RequestMapping(value = { "/" }, method = RequestMethod.GET)
-	public ModelAndView defaultPage() {
-
-		//System.out.println("2");
+	public ModelAndView defaultPage(HttpServletRequest request,
+			HttpServletResponse response) {
+		String newsid = (String) request.getParameter("nid");
+		
 		ModelAndView model = new ModelAndView();		
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		if (!(auth instanceof AnonymousAuthenticationToken)) {
@@ -39,12 +43,36 @@ public class LoginController {
 			for (GrantedAuthority authority : userDetail.getAuthorities()) {
 	            if (authority.getAuthority().equals("ROLE_ADMIN")||authority.getAuthority().equals("ROLE_USER"))
 	            {
+	            	List newsinfo=null,stoklist=null;
 	            	String username = userDetail.getUsername();
-	    			List newsinfo = loginService.getnewsinfo(username);	    			
-	    			String data = newsinfo.get(0).toString();
-	    			String nid =data.substring(data.indexOf("=", 0)+1, data.indexOf(",", 0));
-	    			//System.out.println(nid);
-	    			List stoklist = loginService.getnewsstock(nid);
+	            	//System.out.println("nid:"+newsid);
+	            	if(newsid!=null)
+	            	{
+	            		stoklist = loginService.getuesernotanswernewsstock(username,newsid);
+	            		
+	            		if(stoklist.size()==1)
+	            		{
+	            			newsinfo = loginService.selectansnews(newsid);
+
+	            		}
+	            		else
+	            		{
+	            			newsinfo = loginService.getnewsinfo(username);	    			
+			    			String data = newsinfo.get(0).toString();
+			    			String nid =data.substring(data.indexOf("=", 0)+1, data.indexOf(",", 0));
+			    			//System.out.println(nid);
+			    			stoklist = loginService.getnewsstock(nid);
+	            		}
+	            	}
+	            	else
+	            	{
+	            		newsinfo = loginService.getnewsinfo(username);	    			
+		    			String data = newsinfo.get(0).toString();
+		    			String nid =data.substring(data.indexOf("=", 0)+1, data.indexOf(",", 0));
+		    			//System.out.println(nid);
+		    			stoklist = loginService.getnewsstock(nid);
+	            		
+	            	}   			
 	    			model.addObject("newsinfo", newsinfo);
 	    			model.addObject("stoklist", stoklist);
 	    			System.out.println(stoklist);
@@ -209,15 +237,17 @@ public class LoginController {
 	@RequestMapping(value = "/backstage", method = RequestMethod.GET)
 	public ModelAndView backstage(HttpServletRequest request,HttpServletResponse response) {
 		String nid = (String) request.getParameter("nid");
+		System.out.println(nid);
 		ModelAndView model = new ModelAndView();
-		
+		List newsPostbackinfo = loginService.newsPostbackinfo(nid);		
+		model.addObject("newspostbackinfo", newsPostbackinfo);		
 		model.setViewName("backstagelast");
 		
 		return model;
 	}
 	
 	@RequestMapping(value = "/newslist", method = RequestMethod.GET)
-	public ModelAndView newlist() {
+	public ModelAndView newlist(HttpServletRequest request,HttpServletResponse response) {
 		
 		ModelAndView model = new ModelAndView();
 		
@@ -248,6 +278,39 @@ public class LoginController {
 		
 		return model;
 	}*/
+	
+	@RequestMapping(value = "/addpostpack", method = RequestMethod.POST)
+	public ModelAndView addPostback(HttpServletRequest request,
+			HttpServletResponse response) {
+		
+		ModelAndView model = new ModelAndView();
+		
+		String newsid = (String) request.getParameter("newsid");
+		String message = (String) request.getParameter("message");
+		String postback1 = (String) request.getParameter("postback");
+		String tid = (String) request.getParameter("tid");
+		String username = "";
+		
+		Date date = new Date();
+		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+		String time = dateFormat.format(date);
+
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		
+		if (!(auth instanceof AnonymousAuthenticationToken)) {
+			UserDetails userDetail = (UserDetails) auth.getPrincipal();
+			username = userDetail.getUsername();		
+			//System.out.println(message+","+postback1);
+			int updateCount = loginService.insertpostback(newsid, tid, message, postback1, username, time);
+		}			
+		
+		RedirectView redirectView = new RedirectView("/?nid="+newsid);
+		
+		model.setView(redirectView);
+		
+		return model;
+
+	}
 	
 
 	

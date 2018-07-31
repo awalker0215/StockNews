@@ -68,6 +68,13 @@ public class LoginService {
 		return alluserinfo;
 
 	}
+	
+	public List selectansnews(String nid) {
+
+		List alluserinfo = loginRepository.selectansnews(nid);
+		return alluserinfo;
+
+	}
 
 	public List getnewsstock(String nid) {
 
@@ -82,5 +89,27 @@ public class LoginService {
 		return allpostbackinfo;
 
 	}
+	
+	public List newsPostbackinfo(String nid) {
+
+		List newsPostbackinfo = loginRepository.newsPostbackinfo(nid);
+		return newsPostbackinfo;
+
+	}
+	
+	public List getuesernotanswernewsstock(String name, String nid) {
+
+		List newsPostbackinfo = loginRepository.getuesernotanswernewsstock(name,nid);
+		return newsPostbackinfo;
+
+	}
+	
+	public int insertpostback(String nid, String tid, String reason,String status,String username,String time) {
+
+		int updateCount = loginRepository.insertpostback(nid, tid, reason, status, username, time);
+		return updateCount;
+
+	}
+
 
 }

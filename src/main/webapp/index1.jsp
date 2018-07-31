@@ -24,6 +24,7 @@ $(document).ready(function(){
   <meta name="description" content="">
   <title>Home</title>
   <link rel="stylesheet" href="/resources/css/assets/web/assets/mobirise-icons/mobirise-icons.css">
+  <link rel="stylesheet" href="/resources/css/assets/web/assets/jquery/jquery.jscrollpane.css">
   <link rel="stylesheet" href="/resources/css/assets/tether/tether.min.css">
   <link rel="stylesheet" href="/resources/css/assets/bootstrap/css/bootstrap.min.css">
   <link rel="stylesheet" href="/resources/css/assets/bootstrap/css/bootstrap-grid.min.css">
@@ -36,7 +37,7 @@ $(document).ready(function(){
   
   
 </head>
-<body>
+<bod class="roll-bar">
   <section class="menu cid-qHNmRD3Zls" once="menu" id="menu1-e">
 
     
@@ -95,7 +96,7 @@ $(document).ready(function(){
 <section class="engine"><a href="https://mobirise.ws/m">drag and drop web builder</a></section><section class="cid-qHNs2ZRU4F mbr-fullscreen" id="header15-h">
     <div class="container align-right">
 <div class="row" style="margin-top: 50px">
-    <div class="mbr-white col-lg-8 col-md-7 content-container">
+    <div class="mbr-white col-lg-8 col-md-7 content-container roll-bar">
         <h1 class="mbr-section-title mbr-bold pb-3 mbr-fonts-style display-1">NEWS TITLE</h1>
         <c:forEach items="${newsinfo}" var="q">
         	<h5 class="mbr-fonts-style display-6">${q.news_time}</h5>       	
@@ -103,8 +104,8 @@ $(document).ready(function(){
         <p class="mbr-text pb-3 mbr-fonts-style display-5" align="left" id="content">
           </p>
     </div>
-    <div class="col-lg-4 col-md-5">
-    <div class="form-container">
+    <div class="col-lg-4 col-md-5 main-height">
+    <div class="form-container roll-bar">
         <div class="media-container-column" data-form-type="formoid">
             <form class="mbr-form" action="#" method="post">
 				<div>

@@ -12,7 +12,7 @@ $(document).ready(function(){
     //function showTxt(fileName){
         $("#content").load("/resources/txt/"+'<c:forEach items="${newsinfo}" var="q">${q.news_content}</c:forEach>');
     //}
-	//showTxt("txt/20180123-1.txt")
+	//showTxt("txt/20180123-1.txt")/stocknews/
 });
 </script>
   <!-- Site made with Mobirise Website Builder v4.6.3, https://mobirise.com -->
@@ -24,7 +24,6 @@ $(document).ready(function(){
   <meta name="description" content="">
   <title>Home</title>
   <link rel="stylesheet" href="/resources/css/assets/web/assets/mobirise-icons/mobirise-icons.css">
-  <link rel="stylesheet" href="/resources/css/assets/web/assets/jquery/jquery.jscrollpane.css">
   <link rel="stylesheet" href="/resources/css/assets/tether/tether.min.css">
   <link rel="stylesheet" href="/resources/css/assets/bootstrap/css/bootstrap.min.css">
   <link rel="stylesheet" href="/resources/css/assets/bootstrap/css/bootstrap-grid.min.css">
@@ -37,7 +36,7 @@ $(document).ready(function(){
   
   
 </head>
-<bod class="roll-bar">
+<body>
   <section class="menu cid-qHNmRD3Zls" once="menu" id="menu1-e">
 
     
@@ -75,7 +74,17 @@ $(document).ready(function(){
 						</script>
                     	<a class="nav-link link text-white display-4" href="javascript:formSubmit()">
                         <span class="mbri-logout mbr-iconfont mbr-iconfont-btn"></span>
-                        Logout
+                        	登出
+                    	</a>
+                	</li>
+            	</ul>
+            </sec:authorize>
+            <sec:authorize access="hasRole('ROLE_ADMIN')">
+            	<ul class="navbar-nav nav-dropdown nav-right" data-app-modern-menu="true">
+                	<li class="nav-item">
+                    	<a class="nav-link link text-white display-4" href="/newslist">
+                        <span class="mbri-logout mbr-iconfont mbr-iconfont-btn"></span>
+                       	 後台
                     	</a>
                 	</li>
             	</ul>
@@ -84,10 +93,11 @@ $(document).ready(function(){
             	<div class="navbar-buttons mbr-section-btn">
             		<a class="btn btn-sm btn-primary display-4" href="/login">
             			<span class="mbri-login mbr-iconfont mbr-iconfont-btn "></span>
-                    	Login
+                    	登入
             		</a>
             	</div>
             </sec:authorize>
+            
         </div>
 		
     </nav>
@@ -96,51 +106,42 @@ $(document).ready(function(){
 <section class="engine"><a href="https://mobirise.ws/m">drag and drop web builder</a></section><section class="cid-qHNs2ZRU4F mbr-fullscreen" id="header15-h">
     <div class="container align-right">
 <div class="row" style="margin-top: 50px">
-    <div class="mbr-white col-lg-8 col-md-7 content-container roll-bar">
-        <h1 class="mbr-section-title mbr-bold pb-3 mbr-fonts-style display-1">NEWS TITLE</h1>
+    <div class="mbr-white col-lg-8 col-md-7 content-container">
+    <c:forEach items="${newsinfo}" var="q">
+    	<h2 align="left" class="mbr-section-title mbr-bold pb-3 mbr-fonts-style display-1">${q.news_title}</h2>
+    </c:forEach>       
         <c:forEach items="${newsinfo}" var="q">
         	<h5 class="mbr-fonts-style display-6">${q.news_time}</h5>       	
         </c:forEach>		
         <p class="mbr-text pb-3 mbr-fonts-style display-5" align="left" id="content">
           </p>
     </div>
-    <div class="col-lg-4 col-md-5 main-height">
-    <div class="form-container roll-bar">
+    <div class="col-lg-4 col-md-5">
+    <div class="form-container">
         <div class="media-container-column" data-form-type="formoid">
-            <form class="mbr-form" action="#" method="post">
+            <form name='insertForm' class="mbr-form" action="addpostpack" method="post">
+            <c:forEach items="${stoklist}" var="q">
 				<div>
 					<div class="mbr-black col-lg-8 col-md-7">
 						<p class="mbr-text display-5">
-							Stock
+							${q.target}
 						</p>
 					</div>
 					<span class="input-group-btn modal-dialog-centered">
-						<button href="" type="submit" class="btn btn-primary display-4">好</button>
-            <button href="" type="submit" class="btn btn-info display-4">不確定</button>
-            <button href="" type="submit" class="btn btn-secondary display-4">壞</button>
-            <button href="" type="submit" class="btn btn-success display-4">沒有這張股票</button>
+						<button name="postback" type="submit" class="btn btn-primary display-4" value = "1">好</button>
+            			<button name="postback" type="submit" class="btn btn-info display-4" value = "2">不確定</button>
+            			<button name="postback" type="submit" class="btn btn-secondary display-4" value = "0">壞</button>
+            			<button name="postback" type="submit" class="btn btn-success display-4" value = "3">沒有這張股票</button>
 					</span>
 					<div class="form-group" data-for="message">
-						<textarea type="text" class="form-control px-3" name="message" rows="1" placeholder="原因" data-form-field="Message" id="message-header15-h"></textarea>
+						<textarea type="text" class="form-control px-3" name="message" rows="1" placeholder="原因(必填)" data-form-field="Message" id="message-header15-h"></textarea>
+						<input type="hidden" name="newsid" value="${q.news_id}">
+						<input type="hidden" name="tid" value="${q.tid}">
 					</div>
 				</div>
-				
-				<div>
-					<div class="mbr-black col-lg-8 col-md-7">
-						<p class="mbr-text display-5">
-							Stock
-						</p>
-					</div>
-					<span class="input-group-btn modal-dialog-centered">
-						<button href="" type="submit" class="btn btn-primary display-4">好</button>
-            <button href="" type="submit" class="btn btn-info display-4">不確定</button>
-            <button href="" type="submit" class="btn btn-secondary display-4">壞</button>
-            <button href="" type="submit" class="btn btn-success display-4">沒有這張股票</button>
-					</span>
-					<div class="form-group" data-for="message">
-						<textarea type="text" class="form-control px-3" name="message" rows="1" placeholder="原因" data-form-field="Message" id="message-header15-h"></textarea>
-					</div>
-				</div>
+			</c:forEach>
+				<input type="hidden" name="${_csrf.parameterName}"
+				value="${_csrf.token}" />
             </form>
         </div>
     </div>

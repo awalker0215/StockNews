@@ -1,8 +1,13 @@
-﻿<!DOCTYPE html>
+﻿<%@taglib prefix="sec"
+	uri="http://www.springframework.org/security/tags"%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+<!DOCTYPE html>
 <html >
 <head>
   <!-- Site made with Mobirise Website Builder v4.6.3, https://mobirise.com -->
-  <meta charset="UTF-8">
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="generator" content="Mobirise v4.6.3, mobirise.com">
   <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1">
@@ -41,7 +46,7 @@
             <div class="navbar-brand">
                 
                 <span class="navbar-caption-wrap">
-                    <a class="navbar-caption text-white display-4" href="index.html">
+                    <a class="navbar-caption text-white display-4" href="/">
                         NEWS
                     </a>
                 </span>
@@ -50,22 +55,38 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav nav-dropdown nav-right" data-app-modern-menu="true">
                 <li class="nav-item">
-                    <a class="nav-link link text-white display-4" href="index.html">
+                    <a class="nav-link link text-white display-4" href="/">
                         <span class="mbri-home mbr-iconfont mbr-iconfont-btn"></span>
-                        Home
+                        	首頁
                     </a>
                 </li>
 				<li class="nav-item">
-                    <a class="nav-link link text-white display-4" href="newsList.html">
+                    <a class="nav-link link text-white display-4" href="/newslist">
                         <span class="mbri-contact-form mbr-iconfont mbr-iconfont-btn"></span>
                         新聞列表
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link link text-white display-4" href="">
+                     <sec:authorize access="hasRole('ROLE_USER') or hasRole('ROLE_ADMIN')">
+            	<ul class="navbar-nav nav-dropdown nav-right" data-app-modern-menu="true">
+                	<li class="nav-item">
+                		<c:url value="/j_spring_security_logout" var="logoutUrl" />
+                		<form action="${logoutUrl}" method="post" id="logoutForm">
+							<input type="hidden" name="${_csrf.parameterName}"
+								value="${_csrf.token}" />
+						</form>
+						<script>
+							function formSubmit() {
+								document.getElementById("logoutForm").submit();
+							}
+						</script>
+                    	<a class="nav-link link text-white display-4" href="javascript:formSubmit()">
                         <span class="mbri-logout mbr-iconfont mbr-iconfont-btn"></span>
-                        Logout
-                    </a>
+                        	登出
+                    	</a>
+                	</li>
+            	</ul>
+            </sec:authorize>
                 </li>
             </ul>
             
@@ -88,7 +109,7 @@
           <table class="table" cellspacing="0">
             <thead>
               <tr class="table-heads ">
-				 <th class="head-item mbr-fonts-style display-7">詞彙</th>
+				 <th class="head-item mbr-fonts-style display-7">股票</th>
               	 <th class="head-item mbr-fonts-style display-7">帳號</th>
 				  <th class="head-item mbr-fonts-style display-7">使用者判斷</th>
 				  <th class="head-item mbr-fonts-style display-7">評論</th>
@@ -97,20 +118,15 @@
             </thead>
 
             <tbody>
-				<tr> 
-					<td class="body-item mbr-fonts-style display-7">word</td>
-					<td class="body-item mbr-fonts-style display-7">Jeanna Schmal</td>
-					<td class="body-item mbr-fonts-style display-7">好</td>
-					<td class="body-item mbr-fonts-style display-7">使用者輸入評論</td>
-					<td class="body-item mbr-fonts-style display-7">2016-10-17</td>
+            <c:forEach items="${newspostbackinfo}" var="q">
+    			<tr> 
+					<td class="body-item mbr-fonts-style display-7">${q.target}</td>
+					<td class="body-item mbr-fonts-style display-7">${q.user}</td>
+					<td class="body-item mbr-fonts-style display-7">${q.j_status}</td>
+					<td class="body-item mbr-fonts-style display-7">${q.reason}</td>
+					<td class="body-item mbr-fonts-style display-7">${q.time}</td>
 				</tr>
-				<tr>
-					<td class="body-item mbr-fonts-style display-7">word</td>
-					<td class="body-item mbr-fonts-style display-7">Jeanna Schmal</td>
-					<td class="body-item mbr-fonts-style display-7">好</td>
-					<td class="body-item mbr-fonts-style display-7">使用者輸入評論</td>
-					<td class="body-item mbr-fonts-style display-7">2016-10-17</td>
-				</tr>
+    		</c:forEach>				
 			</tbody>
           </table>
         </div>

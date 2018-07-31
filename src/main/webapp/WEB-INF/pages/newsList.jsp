@@ -13,7 +13,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1">
   <link rel="shortcut icon" href="#" type="image/x-icon">
   <meta name="description" content="Website Builder Description">
-  <title>Backstage</title>
+  <title>NewsList</title>
   <link rel="stylesheet" href="/resources/css/assets/web/assets/mobirise-icons/mobirise-icons.css">
   <link rel="stylesheet" href="/resources/css/assets/tether/tether.min.css">
   <link rel="stylesheet" href="/resources/css/assets/bootstrap/css/bootstrap.min.css">
@@ -46,7 +46,7 @@
             <div class="navbar-brand">
                 
                 <span class="navbar-caption-wrap">
-                    <a class="navbar-caption text-white display-4" href="index.html">
+                    <a class="navbar-caption text-white display-4" href="/">
                         NEWS
                     </a>
                 </span>
@@ -55,23 +55,39 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav nav-dropdown nav-right" data-app-modern-menu="true">
                 <li class="nav-item">
-                    <a class="nav-link link text-white display-4" href="index.html">
+                    <a class="nav-link link text-white display-4" href="/">
                         <span class="mbri-home mbr-iconfont mbr-iconfont-btn"></span>
-                        Home
+                        	首頁
                     </a>
                 </li>
 				<li class="nav-item">
-                    <a class="nav-link link text-white display-4" href="newsList.html">
+                    <a class="nav-link link text-white display-4" href="/newslist">
                         <span class="mbri-contact-form mbr-iconfont mbr-iconfont-btn"></span>
                         新聞列表
                     </a>
                 </li>
 				
                 <li class="nav-item">
-                    <a class="nav-link link text-white display-4" href="">
+                 <sec:authorize access="hasRole('ROLE_USER') or hasRole('ROLE_ADMIN')">
+            	<ul class="navbar-nav nav-dropdown nav-right" data-app-modern-menu="true">
+                	<li class="nav-item">
+                		<c:url value="/j_spring_security_logout" var="logoutUrl" />
+                		<form action="${logoutUrl}" method="post" id="logoutForm">
+							<input type="hidden" name="${_csrf.parameterName}"
+								value="${_csrf.token}" />
+						</form>
+						<script>
+							function formSubmit() {
+								document.getElementById("logoutForm").submit();
+							}
+						</script>
+                    	<a class="nav-link link text-white display-4" href="javascript:formSubmit()">
                         <span class="mbri-logout mbr-iconfont mbr-iconfont-btn"></span>
-                        Logout
-                    </a>
+                        	登出
+                    	</a>
+                	</li>
+            	</ul>
+            </sec:authorize>
                 </li>
             </ul>
             

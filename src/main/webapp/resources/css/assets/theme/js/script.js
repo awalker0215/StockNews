@@ -576,7 +576,7 @@
                 function checkIfInView() {
                     var window_height = window.innerHeight;
                     var window_top_position = document.documentElement.scrollTop || document.body.scrollTop;
-                    var window_bottom_position = window_top_position + window_height + 40;
+                    var window_bottom_position = window_top_position + window_height - 50;
 
                     $.each($animatedElements, function() {
                         var $element = $(this);
